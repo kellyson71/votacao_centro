@@ -1,0 +1,29 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: votacao_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "votacao123"
+      MYSQL_DATABASE: votacao_centro
+    ports:
+      - "3306:3306"
+    volumes:
+      - votacao_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: votacao_pma
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: "votacao123"
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  votacao_data:
