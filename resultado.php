@@ -1,15 +1,11 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
-require_once 'db.php';
 
-$stmt = $pdo->query('
-    SELECT h.id, h.nome, h.imagem, COUNT(v.id) AS total_votos
-    FROM homenageados h
-    LEFT JOIN votos v ON v.homenageado_id = h.id
-    GROUP BY h.id
-    ORDER BY total_votos DESC
-');
-$resultados = $stmt->fetchAll();
+$resultados = [
+    ['nome' => 'Candidato Exemplo 1', 'imagem' => 'img/Foto Francisco.png', 'total_votos' => 120],
+    ['nome' => 'Candidato Exemplo 2', 'imagem' => 'img/Foto Padre Sátiro.png', 'total_votos' => 85],
+    ['nome' => 'Candidato Exemplo 3', 'imagem' => 'img/Foto Xixico.png', 'total_votos' => 45],
+];
 
 $total_geral = 0;
 foreach ($resultados as $r) {
@@ -22,6 +18,7 @@ foreach ($resultados as $r) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado — Votação Pública</title>
+    <link rel="icon" type="image/png" href="img/Logo Prefeitura_SECOM 3.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -209,12 +206,12 @@ foreach ($resultados as $r) {
     <?php endforeach; ?>
 
     <div class="voltar-wrapper">
-        <a href="index.php" class="btn-voltar">← Voltar para votação</a>
+        <a href="index.php" class="btn-voltar">← Voltar para a página inicial</a>
     </div>
 </div>
 
 <footer class="rodape">
-    <img src="img/logo-prefeitura.png" alt="Prefeitura Municipal de Pau dos Ferros">
+    <img src="img/Logo Prefeitura_SECOM 3.png" alt="Prefeitura Municipal de Pau dos Ferros">
     <p>&copy; <?= date('Y') ?> Prefeitura Municipal de Pau dos Ferros.</p>
 </footer>
 
